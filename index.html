@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0099)https://e-report.neu.edu.cn/incoming/register2?entrance_id=65&actual_vehicle=0&timestamp=1599836379 -->
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="IBE8E7cuG0pGyrP52OYvKB9huCxLQveRzF1vnNKC">
+    <title>东北大学验证平台</title>
+    <link href="index.css" rel="stylesheet">
+    <link href="visitor.css" rel="stylesheet" type="text/css">
+    <script>
+        function buttonClick() {
+            setInfo();
+        }
+    </script>
+    <style>
+        @-webkit-keyframes pulse {
+            50% {
+                -webkit-transform: scale3d(1.2, 1.2, 1.2);
+                transform: scale3d(1.2, 1.2, 1.2);
+            }
+        }
+
+        @keyframes pulse {
+            50% {
+                -webkit-transform: scale3d(1.2, 1.2, 1.2);
+                transform: scale3d(1.2, 1.2, 1.2);
+            }
+        }
+
+        .list-group {
+            padding: 1em;
+        }
+
+        .list-group-item {
+            font-size: 1.4em;
+            padding: 0.1em;
+            border: 0;
+        }
+    </style>
+    <script charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/btype.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/chrome.js"></script>
+</head>
+
+<body onload="setTime()">
+<div id="app">
+    <div class="card border-0 text-center" style="color: #006633">
+        <div class="card-body">
+            <h2 class="card-title p-2">东北大学通行验证</h2>
+            <div class="main">
+                <div class="form_1">
+                    <form>
+                        <div class="input_1">
+                            <div class="login_logo">用户信息</div>
+                            <div class="close">X</div>
+                        </div>
+                        <hr>
+                        <div class="input_1"><input type="text" id="input_id" placeholder="&nbsp;学工号"></div>
+                        <div class="input_1"><input type="text" id="input_name" placeholder="&nbsp;姓名"></div>
+                        <select class="select_1" id="input_location">
+                            <option value="浑南校区南门">浑南校区南门</option>
+                            <option value="浑南校区西门">浑南校区西门</option>
+                            <option value="浑南校区东门">浑南校区东门</option>
+                            <option value="浑南校区学生浴池">浑南校区学生浴池</option>
+                        </select>
+                        <div class="input_1"><input class="submit_1" type="button" value="提&nbsp;交"
+                                                    onclick="setInfo()"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="animated infinite pulse p-2">
+                <i class="fas fa-arrow-circle-up" style="font-size: 14em;"></i>
+            </div>
+            <p class="card-text p-2" style="font-size: 1.3em;">
+                时间：<span id="nowDateTimeSpan"></span>
+            </p>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush" style="background-color: #006633">
+        <li class="list-group-item bg-transparent text-white d-flex">
+            <div style="min-width: 4em; text-align-last: justify;">学工号</div>
+            ：
+            <div id="stuId">xxx</div>
+        </li>
+        <li class="list-group-item bg-transparent text-white d-flex">
+            <div style="min-width: 4em; text-align-last: justify;">姓名</div>
+            ：
+            <div id="stuName">xxx</div>
+        </li>
+        <li class="list-group-item bg-transparent text-white d-flex">
+            <div style="min-width: 4em; text-align-last: justify;">验证位置</div>
+            ：
+            <div id="location">xxx</div>
+        </li>
+        <li class="list-group-item bg-transparent text-white d-flex">
+            <div style="min-width: 4em; text-align-last: justify;">进出状态</div>
+            ：
+            <div>进入</div>
+        </li>
+    </ul>
+</div>
+<script>
+    function setTime() {
+        bombBox();
+        const today = new Date();//定义日期对象
+        const yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
+        let MM = today.getMonth() + 1;//通过日期对象的getMonth()方法返回年
+        let dd = today.getDate();//通过日期对象的getDate()方法返回年
+        const hh = today.getHours();//通过日期对象的getHours方法返回小时
+        let mm = today.getMinutes();//通过日期对象的getMinutes方法返回分钟
+        let ss = today.getSeconds();//通过日期对象的getSeconds方法返回秒
+        MM = checkTime(MM);
+        dd = checkTime(dd);
+        mm = checkTime(mm);
+        ss = checkTime(ss);
+        document.getElementById('nowDateTimeSpan').innerHTML = yyyy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" + ss;
+    }
+
+    function setInfo() {
+        document.getElementsByClassName("close")[0].click()
+        const idNum = document.getElementById("input_id").value;
+        const name = document.getElementById("input_name").value;
+        const location = document.getElementById("input_location").value;
+        document.getElementById('stuId').innerHTML = idNum;
+        document.getElementById('stuName').innerHTML = name;
+        document.getElementById('location').innerHTML = location;
+    }
+
+    function bombBox() {
+        const close = document.getElementsByClassName("close");
+        const form_1 = document.getElementsByClassName("form_1");
+        form_1[0].className = "form_1 open";
+        close[0].addEventListener('click', function () {
+            form_1[0].className = "form_1";
+        })
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
+<br/>
+<br/>
+</body>
+
+</html>
